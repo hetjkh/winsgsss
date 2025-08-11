@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Phone, Mail, MessageCircle, Facebook, Twitter, Instagram } from 'lucide-react';
 import LogoWord from '../assets/Wings & Wheels logo word.png';
+import { ChevronDown } from 'lucide-react';
 
 const navItems = [
   { name: 'HOME', path: '/' },
   { name: 'ABOUT', path: '/about' },
-  { name: 'BLOG', path: '/blog' },
+  { name: 'GALLERY', path: '/gallery' },
   { name: 'CONTACT US', path: '/contact' }
 ];
 
@@ -25,7 +26,41 @@ const Navbar = ({ showContactButton = true }) => {
   };
 
   return (
-    <nav className="bg-transparent py-4">
+    <>
+      {/* Top Contact Bar */}
+      <div className="bg-black text-white py-2 px-4 text-sm">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
+          {/* Left Section - Social Media Icons */}
+          <div className="flex items-center space-x-3">
+            <Facebook className="w-4 h-4 cursor-pointer hover:text-blue-400 transition-colors" />
+            <Twitter className="w-4 h-4 cursor-pointer hover:text-blue-400 transition-colors" />
+            <Instagram className="w-4 h-4 cursor-pointer hover:text-pink-400 transition-colors" />
+            <MessageCircle className="w-4 h-4 cursor-pointer hover:text-green-400 transition-colors" />
+          </div>
+          
+          {/* Middle Section - Phone Numbers */}
+          <div className="flex flex-col sm:flex-row items-center space-y-1 sm:space-y-0 sm:space-x-6">
+            <div className="flex items-center space-x-2">
+              <Phone className="w-4 h-4 text-blue-400" />
+              <span>Dubai: +971 4 556 1050</span>
+            </div>
+            <div className="hidden sm:block text-gray-400">|</div>
+            <div className="flex items-center space-x-2">
+              <Phone className="w-4 h-4 text-blue-400" />
+              <span>Abu Dhabi: +971 2 639 4277</span>
+            </div>
+          </div>
+          
+          {/* Right Section - Email */}
+          <div className="flex items-center space-x-2">
+            <Mail className="w-4 h-4 text-red-400" />
+            <span>holidays@satgurutravel.com</span>
+          </div>
+        </div>
+      </div>
+      
+      {/* Main Navigation */}
+      <nav className="bg-transparent py-4">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo */}
@@ -37,15 +72,6 @@ const Navbar = ({ showContactButton = true }) => {
             <img
               onClick={() => navigate('/')}
               className="h-12 sm:h-16 transition-all duration-300 cursor-pointer hover:scale-105"
-              style={{
-                filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))',
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.filter = 'drop-shadow(0 6px 12px rgba(0,0,0,0.4))';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.filter = 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))';
-              }}
               alt="Wings wheels logo"
               src={LogoWord}
             />
@@ -62,37 +88,30 @@ const Navbar = ({ showContactButton = true }) => {
                 <div
                   key={index}
                   onClick={() => navigate(item.path)}
-                  className="relative text-white text-lg xl:text-xl font-medium cursor-pointer transition-all duration-300 hover:text-blue-300 hover:-translate-y-0.5 group"
-                  style={{ textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}
+                  className="relative text-white text-base font-medium cursor-pointer transition-all duration-300 hover:text-blue-400 hover:-translate-y-0.5 group"
                 >
                   {item.name}
-                  <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-300 rounded-full transition-all duration-300 group-hover:w-full"></div>
+                  <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 rounded-full transition-all duration-300 group-hover:w-full"></div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Contact Button - Desktop */}
+          {/* WhatsApp and Contact Button - Desktop */}
           {showContactButton && (
             <div 
-              className={`hidden lg:block transition-all duration-1400 ${
+              className={`hidden lg:flex items-center space-x-4 transition-all duration-1400 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               }`}
             >
+              <div className="flex items-center space-x-2 text-white">
+                <span className="text-sm font-medium">WHATSAPP</span>
+          
+                <ChevronDown className="w-5 h-5 text-black-400" />
+              </div>
               <Button
                 onClick={() => navigate('/contact')}
-                variant="outline"
-                className="rounded-full border-2 border-white h-12 sm:h-14 w-32 sm:w-40 text-white text-base sm:text-lg font-bold bg-transparent hover:bg-white hover:text-black transition-all duration-300 hover:scale-105 hover:-translate-y-0.5"
-                style={{
-                  textShadow: '0 2px 4px rgba(0,0,0,0.3)',
-                  boxShadow: '0 0 0 rgba(255,255,255,0)',
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.boxShadow = '0 8px 25px rgba(255,255,255,0.3)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.boxShadow = '0 0 0 rgba(255,255,255,0)';
-                }}
+                className="rounded-full bg-transparent border border-white hover:bg-white hover:text-black h-10 px-6 text-white text-sm font-medium transition-all duration-300 hover:scale-105"
               >
                 CONTACT
               </Button>
@@ -114,7 +133,7 @@ const Navbar = ({ showContactButton = true }) => {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden mt-4 pb-4">
+          <div className="lg:hidden mt-4 pb-4 bg-black/90 rounded-lg">
             <div className="flex flex-col space-y-4">
               {navItems.map((item, index) => (
                 <div
@@ -123,12 +142,16 @@ const Navbar = ({ showContactButton = true }) => {
                     navigate(item.path);
                     setIsMobileMenuOpen(false);
                   }}
-                  className="text-white text-lg font-medium cursor-pointer transition-all duration-300 hover:text-blue-300 px-4 py-2"
-                  style={{ textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}
+                  className="text-white text-lg font-medium cursor-pointer transition-all duration-300 hover:text-blue-400 px-4 py-2"
                 >
                   {item.name}
                 </div>
               ))}
+              {/* WhatsApp in Mobile Menu */}
+              <div className="flex items-center justify-center space-x-2 text-white px-4 py-2">
+                <span className="text-lg font-medium">WHATSAPP</span>
+                <MessageCircle className="w-6 h-6 text-green-400" />
+              </div>
               {showContactButton && (
                 <div className="px-4 pt-2">
                   <Button
@@ -136,8 +159,7 @@ const Navbar = ({ showContactButton = true }) => {
                       navigate('/contact');
                       setIsMobileMenuOpen(false);
                     }}
-                    variant="outline"
-                    className="rounded-full border-2 border-white w-full h-12 text-white text-lg font-bold bg-transparent hover:bg-white hover:text-black transition-all duration-300"
+                    className="rounded-full bg-transparent border border-white hover:bg-white hover:text-black w-full h-12 text-white text-lg font-medium transition-all duration-300"
                   >
                     CONTACT
                   </Button>
@@ -148,6 +170,7 @@ const Navbar = ({ showContactButton = true }) => {
         )}
       </div>
     </nav>
+    </>
   );
 };
 

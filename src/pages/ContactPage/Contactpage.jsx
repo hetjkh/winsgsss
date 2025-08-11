@@ -1117,6 +1117,7 @@ const ContactUsPage = () => {
 
                     {/* Submit Button */}
                     <div className="text-center mt-4">
+                      <div className="h-4"></div>
                       <Button
                         className="py-2 px-6 rounded-full bg-black text-white text-lg font-semibold uppercase shadow-lg transition-all duration-300 hover:bg-gray-800 hover:-translate-y-0.5 hover:shadow-xl"
                       >
@@ -1230,6 +1231,8 @@ const ContactUsPage = () => {
                   </div>
                 </CardContent>
               </Card>
+                
+              <div className="h-4"></div>
 
               {/* ENHANCED SOCIAL MEDIA Box */}
               <Card className="bg-white border border-gray-200 shadow-lg">
@@ -1267,6 +1270,8 @@ const ContactUsPage = () => {
                       );
                     })}
                   </div>
+                
+                  <div className="h-4"></div>
 
                   {/* Social Media Details */}
                   <div className="space-y-2.5">
@@ -1285,6 +1290,7 @@ const ContactUsPage = () => {
                     <MessageCircle size={24} className="text-green-600" />
                     <div className="flex-1">
                       <p className="font-semibold text-black text-sm">
+                        <div className="h-6"></div>
                         WhatsApp Us Directly
                       </p>
                       <p className="text-gray-600 text-xs">
