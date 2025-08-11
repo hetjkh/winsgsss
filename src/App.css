@@ -101,3 +101,71 @@ div[data-slot="select-trigger"] {
   background: white !important;
   color: black !important;
 }
+
+/* Standardize all form inputs to have consistent white styling */
+[data-slot="input"],
+[data-slot="textarea"] {
+  background-color: white !important;
+  background: white !important;
+  color: black !important;
+  border-color: #d1d5db !important;
+}
+
+[data-slot="input"]:focus,
+[data-slot="textarea"]:focus {
+  background-color: white !important;
+  background: white !important;
+  color: black !important;
+}
+
+/* Fix counter buttons to use black text on white background */
+button[aria-label*="Increase"],
+button[aria-label*="Decrease"],
+.counter-button {
+  background-color: white !important;
+  background: white !important;
+  color: black !important;
+  border-color: #d1d5db !important;
+}
+
+button[aria-label*="Increase"]:hover,
+button[aria-label*="Decrease"]:hover,
+.counter-button:hover {
+  background-color: #f3f4f6 !important;
+  background: #f3f4f6 !important;
+  color: black !important;
+}
+
+/* Ensure all form labels are black */
+[data-slot="label"] {
+  color: black !important;
+}
+
+/* Ensure placeholder text is visible */
+[data-slot="input"]::placeholder,
+[data-slot="textarea"]::placeholder {
+  color: #6b7280 !important;
+}
+
+/* Fix any button styling inconsistencies */
+button[data-slot="button"] {
+  color: inherit;
+}
+
+/* Ensure consistent border styling for all form elements */
+[data-slot="input"],
+[data-slot="textarea"],
+[data-slot="select-trigger"] {
+  border: 1px solid #d1d5db !important;
+  border-radius: 6px !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Focus states for all form elements */
+[data-slot="input"]:focus,
+[data-slot="textarea"]:focus,
+[data-slot="select-trigger"]:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+  outline: none !important;
+}
