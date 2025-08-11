@@ -45,6 +45,8 @@
 [data-slot="select-trigger"] {
   background-color: white !important;
   color: black !important;
+  height: 2.25rem !important; /* h-9 equivalent */
+  min-height: 2.25rem !important;
 }
 
 [data-slot="select-content"] {
@@ -70,6 +72,8 @@
   background-color: #f9fafb !important;
   background: #f9fafb !important;
   color: black !important;
+  height: 2.25rem !important;
+  min-height: 2.25rem !important;
 }
 
 /* Additional specificity for Select components */
@@ -77,6 +81,8 @@ div[data-slot="select-trigger"] {
   background-color: #f9fafb !important;
   background: #f9fafb !important;
   color: black !important;
+  height: 2.25rem !important;
+  min-height: 2.25rem !important;
 }
 
 /* Override CSS variables to ensure consistent light styling */
@@ -100,6 +106,8 @@ div[data-slot="select-trigger"] {
   background-color: white !important;
   background: white !important;
   color: black !important;
+  height: 2.25rem !important;
+  min-height: 2.25rem !important;
 }
 
 /* Standardize all form inputs to have consistent white styling */
