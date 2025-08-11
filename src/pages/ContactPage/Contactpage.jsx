@@ -161,24 +161,10 @@ const ContactUsPage = () => {
       username: '@holidaydreamztravel'
     },
     {
-      name: 'Twitter',
-      icon: Twitter,
-      color: '#1DA1F2',
-      url: 'https://twitter.com/holidaydreamz',
-      username: '@holidaydreamz'
-    },
-    {
       name: 'LinkedIn',
       icon: Linkedin,
       color: '#0A66C2',
       url: 'https://linkedin.com/company/holiday-dreamz-travel',
-      username: 'Holiday Dreamz Travel'
-    },
-    {
-      name: 'YouTube',
-      icon: Youtube,
-      color: '#FF0000',
-      url: 'https://youtube.com/@holidaydreamztravel',
       username: 'Holiday Dreamz Travel'
     },
     {
@@ -251,7 +237,10 @@ const ContactUsPage = () => {
       <div 
         className="relative w-full min-h-screen bg-cover bg-center bg-no-repeat overflow-hidden"
         style={{
-          backgroundImage: 'url(https://images.pexels.com/photos/378570/pexels-photo-378570.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop)',
+          backgroundImage: 'url(/src/assets/new/24.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
         }}
       >
         <div className="absolute inset-0 bg-black/40 z-10"></div>
@@ -271,8 +260,10 @@ const ContactUsPage = () => {
                   }`}
                   style={{
                     fontFamily: 'Poppins, Roboto, Arial, sans-serif',
-                    fontSize: 'clamp(2.5rem, 5vw, 4rem)',
-                    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
+                    fontSize: 'clamp(3rem, 7vw, 5rem)',
+                    fontWeight: '800',
+                    textShadow: '3px 3px 6px rgba(0, 0, 0, 0.6)',
+                    letterSpacing: '2px',
                   }}
                 >
                   CONTACT US

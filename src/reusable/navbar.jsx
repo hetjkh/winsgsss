@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Phone, Mail, MessageCircle, Facebook, Twitter, Instagram } from 'lucide-react';
-import LogoWord from '../assets/Wings & Wheels logo word.png';
+import LogoWord from '../assets/Wings.png';
 import { ChevronDown } from 'lucide-react';
 
 const navItems = [
@@ -54,27 +54,35 @@ const Navbar = ({ showContactButton = true }) => {
           {/* Right Section - Email */}
           <div className="flex items-center space-x-2">
             <Mail className="w-4 h-4 text-red-400" />
-            <span>holidays@satgurutravel.com</span>
+            <span>reservation@wwtravels.net</span>
           </div>
         </div>
       </div>
       
       {/* Main Navigation */}
       <nav className="bg-transparent py-4">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center">
-          {/* Logo */}
+      <div className="max-w-7xl mx-auto pl-2 sm:pl-4">
+        <div className="flex items-center">
+          {/* Logo with Text */}
           <div 
-            className={`transition-all duration-1000 ${
+            className={`flex items-center space-x-4 transition-all duration-1000 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
           >
             <img
               onClick={() => navigate('/')}
-              className="h-12 sm:h-16 transition-all duration-300 cursor-pointer hover:scale-105"
+              className="h-16 sm:h-20 transition-all duration-300 cursor-pointer hover:scale-105"
               alt="Wings wheels logo"
               src={LogoWord}
             />
+            <div className="flex flex-col">
+              <h1 className="text-black text-xl sm:text-2xl font-bold tracking-wide" style={{ fontFamily: '"Bodoni Bd BT", serif' }}>
+                WINGS & WHEELS
+              </h1>
+              <p className="text-black text-sm sm:text-base -mt-1" style={{ fontFamily: '"Bodoni Bd BT", serif' }}>
+                TRAVEL AND TOURISM
+              </p>
+            </div>
           </div>
 
           {/* Desktop Navigation */}
@@ -88,7 +96,7 @@ const Navbar = ({ showContactButton = true }) => {
                 <div
                   key={index}
                   onClick={() => navigate(item.path)}
-                  className="relative text-white text-base font-medium cursor-pointer transition-all duration-300 hover:text-blue-400 hover:-translate-y-0.5 group"
+                  className="relative text-black text-base font-medium cursor-pointer transition-all duration-300 hover:text-blue-600 hover:-translate-y-0.5 group"
                 >
                   {item.name}
                   <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 rounded-full transition-all duration-300 group-hover:w-full"></div>
@@ -104,14 +112,14 @@ const Navbar = ({ showContactButton = true }) => {
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               }`}
             >
-              <div className="flex items-center space-x-2 text-white">
+              <div className="flex items-center space-x-2 text-black">
                 <span className="text-sm font-medium">WHATSAPP</span>
           
                 <ChevronDown className="w-5 h-5 text-black-400" />
               </div>
               <Button
                 onClick={() => navigate('/contact')}
-                className="rounded-full bg-transparent border border-white hover:bg-white hover:text-black h-10 px-6 text-white text-sm font-medium transition-all duration-300 hover:scale-105"
+                className="rounded-full bg-transparent border border-black hover:bg-black hover:text-white h-10 px-6 text-black text-sm font-medium transition-all duration-300 hover:scale-105"
               >
                 CONTACT
               </Button>
@@ -142,13 +150,13 @@ const Navbar = ({ showContactButton = true }) => {
                     navigate(item.path);
                     setIsMobileMenuOpen(false);
                   }}
-                  className="text-white text-lg font-medium cursor-pointer transition-all duration-300 hover:text-blue-400 px-4 py-2"
+                  className="text-black text-lg font-medium cursor-pointer transition-all duration-300 hover:text-blue-600 px-4 py-2"
                 >
                   {item.name}
                 </div>
               ))}
               {/* WhatsApp in Mobile Menu */}
-              <div className="flex items-center justify-center space-x-2 text-white px-4 py-2">
+              <div className="flex items-center justify-center space-x-2 text-black px-4 py-2">
                 <span className="text-lg font-medium">WHATSAPP</span>
                 <MessageCircle className="w-6 h-6 text-green-400" />
               </div>
@@ -159,7 +167,7 @@ const Navbar = ({ showContactButton = true }) => {
                       navigate('/contact');
                       setIsMobileMenuOpen(false);
                     }}
-                    className="rounded-full bg-transparent border border-white hover:bg-white hover:text-black w-full h-12 text-white text-lg font-medium transition-all duration-300"
+                    className="rounded-full bg-transparent border border-black hover:bg-black hover:text-white w-full h-12 text-black text-lg font-medium transition-all duration-300"
                   >
                     CONTACT
                   </Button>
