@@ -71,7 +71,7 @@ const Navbar = ({ showContactButton = true }) => {
           >
             <img
               onClick={() => navigate('/')}
-              className="h-16 sm:h-20 transition-all duration-300 cursor-pointer hover:scale-105"
+              className="h-20 sm:h-24 transition-all duration-300 cursor-pointer hover:scale-105"
               alt="Wings wheels logo"
               src={LogoWord}
             />

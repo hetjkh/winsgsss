@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Navbar from '../../reusable/navbar';
 import { Button } from '../../components/ui/button';
 import hetImage from '../../assets/het.jpg';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Star, Quote } from 'lucide-react';
+import Footer from '../../reusable/footer';
 
 // Import local images
 import image1 from '../../assets/1.jpg';
@@ -36,7 +37,7 @@ const services = [
     },
     {
       id: 4,
-      title: "Hotel RESERVATIONS",
+      title: "HOTEL RESERVATIONS",
       description: "Find and book the perfect accommodation for your stay. From luxury resorts to budget-friendly options.",
       image: image4
     },
@@ -134,40 +135,89 @@ const whyChooseReasons = [
   {
     id: 1,
     title: "EXPERTISE AND PERSONALIZED SERVICE",
-    description: "Travel agents are experienced professionals who can offer tailored advice based on your preferences, budget, and travel style. They can recommend destinations, accommodations, and activities that ensuring the trip is uniquely suited to travel"
+    description: "Our team of certified travel professionals brings years of industry experience to craft your perfect journey. We take the time to understand your unique travel style, preferences, and budget to create a customized itinerary that exceeds your expectations. From romantic getaways to family vacations and business trips, we provide personalized recommendations for destinations, accommodations, and activities that align perfectly with your vision of the perfect trip."
   },
   {
     id: 2,
     title: "TIME AND STRESS SAVINGS",
-    description: "Planning a trip, especially a complex one, can be time-consuming and stressful. Travel agents handle all the details, from booking flights and hotels to arranging transportation and excursions."
+    description: "Planning a trip, especially to multiple destinations, can be an overwhelming task that consumes countless hours. Our travel experts handle every detail meticulously - from securing the best flight options and hotel bookings to arranging local transportation and exclusive excursions. We navigate the complexities of travel planning so you can focus on the excitement of your upcoming adventure. With us, you'll save an average of 15-20 hours of research and planning time per trip."
   },
   {
     id: 3,
     title: "ACCESS TO EXCLUSIVE DEALS AND PERKS",
-    description: "Travel agencies often have access to exclusive deals, promotions, and perks that are not available to the public. These can include complimentary room upgrades, resort credits, special tours, and more, adding significant value to your booking."
+    description: "Through our extensive network of global partners and premium memberships, we unlock exclusive benefits that aren't available to the general public. Enjoy complimentary room upgrades, early check-in/late check-out privileges, resort credits, special dining experiences, and VIP treatment at top destinations worldwide. Our clients regularly save up to 30% on luxury accommodations and receive added value that enhances their travel experience without increasing their budget."
   },
   {
     id: 4,
     title: "SAFETY AND SECURITY",
-    description: "Travel agents are well-versed in travel advisories and can provide essential information on visa requirements, health and safety precautions. This expertise is particularly valuable for international travel, providing peace of mind and ensuring a smoother journey."
+    description: "Your well-being is our top priority. We stay updated with the latest travel advisories, health requirements, and safety protocols for every destination. Our team provides comprehensive pre-trip briefings, including essential information on local customs, emergency contacts, and health precautions. We offer 24/7 emergency assistance during your travels, ensuring you have support whenever you need it, wherever you are in the world."
   },
   {
     id: 5,
     title: "SAFE, SECURE & TRANSPARENT",
-    description: "We value your trust. That's why we offer clear pricing, secure payments, and honest communication. No hidden charges, no last-minute surprises—just smooth, reliable service from start to finish."
+    description: "We believe in complete transparency and integrity in all our dealings. Our pricing is clear and comprehensive, with no hidden fees or surprise charges. We use secure payment gateways to protect your financial information and offer flexible cancellation policies. Our team maintains open communication throughout the booking process and beyond, providing regular updates and being available to address any questions or concerns you might have about your travel plans."
   },
   {
     id: 6,
     title: "WIDE NETWORK OF GLOBAL PARTNERS",
-    description: "We work with trusted airlines, hotels, tour operators, and transport vendors across the world. This means better deals, priority service, and exclusive travel options that you won't find anywhere else. Wherever you're going, our global connections make your journey smoother and more affordable."
+    description: "Our strategic partnerships with over 5,000 travel providers across 100+ countries give us unparalleled access to the best rates and premium services. Whether you're looking for a luxury resort in the Maldives, a boutique hotel in Paris, or an adventure tour in New Zealand, our global connections ensure you receive priority treatment and exclusive access. Our established relationships mean we can often secure last-minute bookings and special arrangements that aren't available through online booking platforms."
+  }
+];
+
+const reviews = [
+  {
+    id: 1,
+    name: "Priya Sharma",
+    location: "Dubai",
+    rating: 5,
+    review: "Booking with Wings & Wheels was the best decision I made for my Dubai trip. From the moment I contacted them, their team was super helpful and friendly. They handled my flight bookings, visa, hotel stay, and even airport transfers so smoothly. I didn't have to worry about anything. They also customized the package to fit my budget without compromising on quality. I loved how responsive they were—even at odd hours. This wasn't just a trip, it was a truly relaxing experience thanks to their planning. I'll definitely recommend them to my friends and family.",
+    image: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2"
+  },
+  {
+    id: 2,
+    name: "Ankit Mehta",
+    location: "Europe Tour",
+    rating: 5,
+    review: "A well-planned tour from start to finish. I didn't have to worry about a thing. Great support even during the trip!",
+    image: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2"
+  },
+  {
+    id: 3,
+    name: "Fatima Ali",
+    location: "Maldives",
+    rating: 5,
+    review: "Smooth booking, great support, stress-free trip. Highly recommend Wings & Wheels!",
+    image: "https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2"
+  },
+  {
+    id: 4,
+    name: "Sarah Johnson",
+    location: "Thailand",
+    rating: 5,
+    review: "Exceptional service and attention to detail. Made our honeymoon absolutely perfect!",
+    image: "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2"
   }
 ];
 
 const Home = () => {
   const [selectedDestination, setSelectedDestination] = useState(destinations[0]);
 
+  // Memoize expensive calculations
+  const memoizedDestinations = useMemo(() => destinations, []);
+  const memoizedServices = useMemo(() => services, []);
+  const memoizedReasons = useMemo(() => whyChooseReasons, []);
+
   const handleDestinationClick = (destination) => {
     setSelectedDestination(destination);
+  };
+
+  const renderStars = (rating) => {
+    return Array.from({ length: 5 }, (_, i) => (
+      <Star
+        key={i}
+        className={`w-4 h-4 ${i < rating ? 'text-yellow-400 fill-current' : 'text-gray-300'}`}
+      />
+    ));
   };
 
   return (
@@ -175,12 +225,12 @@ const Home = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="w-full max-w-7xl mx-auto px-4 py-12">
+      <section className="w-full max-w-7xl mx-auto px-4 py-8 lg:py-12">
         <div className="flex flex-col lg:flex-row items-start justify-between gap-8 lg:gap-12">
           {/* Left Content */}
           <div className="flex-1 space-y-6 max-w-xl">
             <h1 
-              className="text-2xl lg:text-3xl xl:text-4xl font-bold text-black leading-tight"
+              className="text-2xl lg:text-3xl font-bold text-black leading-tight"
               style={{ fontFamily: '"Bodoni Bd BT", serif' }}
             >
               WE PROVIDE SEAMLESS SECURE, AND STRESS FREE TRAVEL EXPERIENCES TAILORED JUST FOR YOU.
@@ -188,13 +238,13 @@ const Home = () => {
             
             <div className="space-y-3">
               <p className="text-base font-semibold text-black">Your Next Adventure Starts Here</p>
-              <p className="text-base font-semibold text-black">
+              <p className="text-sm text-black leading-relaxed">
                 Ready to explore? We're a team of passionate travelers dedicated to making your dream vacation a reality. Whether you're seeking a relaxing beach getaway, a thrilling mountain expedition, or an immersive cultural tour, we've got you covered.
               </p>
             </div>
             
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 pt-8">
+            <div className="flex flex-col sm:flex-row gap-3 pt-6">
               <Button className="bg-transparent border-2 border-black text-black hover:bg-black hover:text-white px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300">
                 SERVICES
               </Button>
@@ -211,6 +261,7 @@ const Home = () => {
                 src={hetImage}
                 alt="Travel experience"
                 className="w-full h-auto max-h-[500px] object-cover rounded-lg"
+                loading="lazy"
               />
             </div>
           </div>
@@ -218,27 +269,27 @@ const Home = () => {
       </section>
 
       {/* Services Section */}
-      <section className="w-full bg-black text-white py-16">
+      <section className="w-full bg-black text-white py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-4">
           {/* Header */}
-          <div className="mb-12">
+          <div className="mb-10 lg:mb-12">
             <h2 
-              className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-6"
+              className="text-2xl lg:text-3xl font-bold mb-4"
               style={{ fontFamily: '"Bodoni Bd BT", serif' }}
             >
               OUR SERVICES
             </h2>
-            <p className="text-lg text-gray-300 max-w-2xl">
+            <p className="text-sm lg:text-base text-gray-300 max-w-2xl leading-relaxed">
               We take care of everything you need for a smooth and enjoyable trip. From booking flights to helping with visas and more—we've got you covered.
             </p>
           </div>
 
           {/* Services Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-8 max-w-6xl mx-auto px-4">
-            {services.map((service) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
+            {memoizedServices.map((service) => (
               <div
                 key={service.id}
-                className="group relative overflow-hidden rounded-2xl bg-black/30 hover:bg-black/50 transition-all duration-500 cursor-pointer h-[400px] w-full max-w-[300px] mx-auto my-2"
+                className="group relative overflow-hidden rounded-2xl bg-black/30 hover:bg-black/50 transition-all duration-500 cursor-pointer h-[350px] lg:h-[400px] w-full max-w-[300px] mx-auto"
               >
                 {/* Background Image */}
                 <div className="absolute inset-0 group-hover:bg-black/40 transition-all duration-500">
@@ -246,17 +297,18 @@ const Home = () => {
                     src={service.image}
                     alt={service.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
                   />
                 </div>
 
                 {/* Content */}
                 <div className="relative p-6 h-full flex flex-col">
                   {/* Text Content */}
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors duration-300">
+                  <div className="space-y-3">
+                    <h3 className="text-lg font-bold text-white group-hover:text-blue-400 transition-colors duration-300">
                       {service.title}
                     </h3>
-                    <p className="text-sm text-gray-300 group-hover:text-white transition-colors duration-300 line-clamp-6 mt-2">
+                    <p className="text-sm text-gray-300 group-hover:text-white transition-colors duration-300 line-clamp-4 leading-relaxed">
                       {service.description}
                     </p>
                   </div>
@@ -285,58 +337,58 @@ const Home = () => {
         <div className="absolute inset-0 bg-black/40 transition-all duration-700"></div>
         
         {/* Content Container */}
-        <div className="relative z-10 flex-1 flex flex-col justify-between max-w-7xl mx-auto w-full px-6 py-8 md:py-10">
+        <div className="relative z-10 flex-1 flex flex-col justify-between max-w-7xl mx-auto w-full px-4 lg:px-6 py-8 lg:py-10">
           
           {/* Header Section */}
-          <div className="mb-10">
+          <div className="mb-8 lg:mb-10">
             <div className="max-w-4xl">
               <h2 
-                className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-4 tracking-wide"
+                className="text-2xl lg:text-3xl font-bold text-white mb-4 tracking-wide"
                 style={{ fontFamily: '"Bodoni Bd BT", serif' }}
               >
                 POPULAR DESTINATIONS
               </h2>
-              <p className="text-base lg:text-lg text-white/90 leading-relaxed max-w-2xl">
+              <p className="text-sm lg:text-base text-white/90 leading-relaxed max-w-2xl">
                 Discover our handpicked selection of dream destinations. From beach retreats to cultural expeditions, find your perfect getaway.
               </p>
             </div>
           </div>
 
           {/* Featured Destination Details */}
-          <div className="mb-10">
+          <div className="mb-8 lg:mb-10">
             <div className="max-w-4xl">
               <h3 
-                className="text-4xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 tracking-wider leading-none transition-all duration-500"
+                className="text-3xl lg:text-5xl font-bold text-white mb-3 lg:mb-4 tracking-wider leading-none transition-all duration-500"
                 style={{ fontFamily: '"Bodoni Bd BT", serif' }}
               >
                 {selectedDestination.name}
               </h3>
               
-              <p className="text-sm lg:text-base text-yellow-400 font-semibold mb-6 tracking-widest">
+              <p className="text-xs lg:text-sm text-yellow-400 font-semibold mb-4 lg:mb-6 tracking-widest">
                 {selectedDestination.country}
               </p>
               
-              <p className="text-lg lg:text-xl text-white/95 mb-10 leading-relaxed max-w-3xl">
+              <p className="text-base lg:text-lg text-white/95 mb-6 lg:mb-8 leading-relaxed max-w-3xl">
                 {selectedDestination.description}
               </p>
 
               {/* Destination Details Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-white">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 text-white">
                 <div className="space-y-2">
-                  <h4 className="font-bold text-yellow-400 text-sm tracking-wide">ATTRACTIONS</h4>
-                  <p className="text-sm text-white/90 leading-relaxed">{selectedDestination.attractions}</p>
+                  <h4 className="font-bold text-yellow-400 text-xs tracking-wide">ATTRACTIONS</h4>
+                  <p className="text-xs text-white/90 leading-relaxed">{selectedDestination.attractions}</p>
                 </div>
                 <div className="space-y-2">
-                  <h4 className="font-bold text-yellow-400 text-sm tracking-wide">ACTIVITIES</h4>
-                  <p className="text-sm text-white/90 leading-relaxed">{selectedDestination.activities}</p>
+                  <h4 className="font-bold text-yellow-400 text-xs tracking-wide">ACTIVITIES</h4>
+                  <p className="text-xs text-white/90 leading-relaxed">{selectedDestination.activities}</p>
                 </div>
                 <div className="space-y-2">
-                  <h4 className="font-bold text-yellow-400 text-sm tracking-wide">BEST TIME</h4>
-                  <p className="text-sm text-white/90 leading-relaxed">{selectedDestination.bestTime}</p>
+                  <h4 className="font-bold text-yellow-400 text-xs tracking-wide">BEST TIME</h4>
+                  <p className="text-xs text-white/90 leading-relaxed">{selectedDestination.bestTime}</p>
                 </div>
                 <div className="space-y-2">
-                  <h4 className="font-bold text-yellow-400 text-sm tracking-wide">CUISINE</h4>
-                  <p className="text-sm text-white/90 leading-relaxed">{selectedDestination.cuisine}</p>
+                  <h4 className="font-bold text-yellow-400 text-xs tracking-wide">CUISINE</h4>
+                  <p className="text-xs text-white/90 leading-relaxed">{selectedDestination.cuisine}</p>
                 </div>
               </div>
             </div>
@@ -344,14 +396,14 @@ const Home = () => {
 
           {/* Interactive Destinations Grid */}
           <div className="mt-auto">
-            <div className="mb-8">
-              <h4 className="text-xl lg:text-2xl font-semibold text-white/90 tracking-wide">
+            <div className="mb-6 lg:mb-8">
+              <h4 className="text-lg lg:text-xl font-semibold text-white/90 tracking-wide">
                 Explore Destinations
               </h4>
             </div>
             
-            <div className="flex flex-wrap justify-start gap-6 lg:gap-8">
-              {destinations.map((destination) => (
+            <div className="flex flex-wrap justify-start gap-4 lg:gap-6">
+              {memoizedDestinations.map((destination) => (
                 <div
                   key={destination.id}
                   onClick={() => handleDestinationClick(destination)}
@@ -361,8 +413,8 @@ const Home = () => {
                       : 'hover:shadow-yellow-400/20'
                   }`}
                   style={{ 
-                    width: '160px', 
-                    height: '200px' 
+                    width: '140px', 
+                    height: '180px' 
                   }}
                 >
                   {/* Background Image */}
@@ -371,6 +423,7 @@ const Home = () => {
                       src={destination.image}
                       alt={destination.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      loading="lazy"
                     />
                   </div>
                   
@@ -382,9 +435,9 @@ const Home = () => {
                   }`}></div>
 
                   {/* Content */}
-                  <div className="relative z-10 p-4 h-full flex flex-col justify-end">
+                  <div className="relative z-10 p-3 h-full flex flex-col justify-end">
                     <div className="text-center">
-                      <h5 className={`font-bold text-sm mb-1 tracking-wide transition-colors duration-300 ${
+                      <h5 className={`font-bold text-xs mb-1 tracking-wide transition-colors duration-300 ${
                         selectedDestination.id === destination.id 
                           ? 'text-yellow-400' 
                           : 'text-white group-hover:text-yellow-400'
@@ -398,7 +451,7 @@ const Home = () => {
                     
                     {/* Active Indicator */}
                     {selectedDestination.id === destination.id && (
-                      <div className="absolute top-3 right-3 w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
+                      <div className="absolute top-2 right-2 w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
                     )}
                   </div>
 
@@ -412,39 +465,39 @@ const Home = () => {
       </section>
 
       {/* Why Choose Travel Agency Section */}
-      <section className="w-full bg-white py-16">
+      <section className="w-full bg-white py-16 lg:py-20">
         <div className="max-w-7xl mx-auto px-4">
           {/* Header */}
-          <div className="text-left mb-12 max-w-4xl">
+          <div className="text-left mb-12 lg:mb-16 max-w-4xl">
             <h2 
-              className="text-xl lg:text-2xl xl:text-3xl font-bold text-black mb-4"
+              className="text-2xl lg:text-3xl font-bold text-black mb-4"
               style={{ fontFamily: '"Bodoni Bd BT", serif' }}
             >
               WHY CHOOSE TO BOOK WITH A TRAVEL AGENCY?
             </h2>
-            <p className="text-sm text-gray-600">
-              With years of experience and a passion for travel, we make sure every trip is smooth, safe, and perfectly planned. Here's why thousands of travelers choose us.
+            <p className="text-sm lg:text-base text-gray-600 leading-relaxed">
+              With years of experience and a passion for travel, we make sure every trip is smooth, safe, and perfectly planned. Here's why thousands of travelers trust us with their dream vacations.
             </p>
           </div>
 
           {/* Reasons Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {whyChooseReasons.map((reason) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+            {memoizedReasons.map((reason) => (
               <div
                 key={reason.id}
-                className="group bg-gray-100 hover:bg-gray-50 p-8 rounded-2xl transition-all duration-300 cursor-pointer shadow-sm hover:shadow-lg flex flex-col h-full"
+                className="group bg-white hover:bg-gray-50 p-7 lg:p-8 rounded-2xl transition-all duration-300 cursor-pointer shadow-sm hover:shadow-xl border border-gray-100 flex flex-col h-full min-h-[320px]"
               >
-                <div className="flex-grow space-y-4">
-                  <h3 className="text-xl font-bold text-black group-hover:text-gray-800 transition-colors duration-300">
+                <div className="flex-grow space-y-5">
+                  <h3 className="text-lg font-bold text-gray-900 group-hover:text-black transition-colors duration-300">
                     {reason.title}
                   </h3>
-                  <p className="text-gray-600 group-hover:text-gray-700 transition-colors duration-300 leading-relaxed">
+                  <p className="text-sm text-gray-600 group-hover:text-gray-700 transition-colors duration-300 leading-relaxed">
                     {reason.description}
                   </p>
                 </div>
 
                 {/* Arrow Icon */}
-                <div className="mt-6">
+                <div className="mt-8">
                   <div className="w-8 h-8 rounded-full border border-gray-300 group-hover:border-gray-400 flex items-center justify-center group-hover:bg-gray-200 transition-all duration-300">
                     <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors duration-300" />
                   </div>
@@ -454,6 +507,228 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* Customer Reviews Section */}
+      <section className="w-full bg-black text-white py-8 lg:py-12 min-h-screen flex flex-col">
+        <div className="max-w-7xl mx-auto px-4 w-full">
+          {/* Header */}
+          <div className="mb-8 lg:mb-12">
+            <h2 
+              className="text-2xl lg:text-3xl font-bold text-white mb-2"
+              style={{ fontFamily: '"Bodoni Bd BT", serif' }}
+            >
+              WHAT OUR CUSTOMERS SAY
+            </h2>
+            <p className="text-sm lg:text-base text-gray-300 max-w-2xl leading-relaxed">
+              Our customers are at the heart of everything we do. Here's what real travelers say about their experiences with Wings & Wheels.
+            </p>
+          </div>
+
+          {/* Reviews Grid */}
+          <div className="flex flex-col lg:flex-row gap-6 max-w-6xl mx-auto">
+            {/* Left Side - Single Large Review */}
+            <div className="lg:w-1/2 bg-white text-black p-8 rounded-2xl shadow-lg flex flex-col h-full">
+              <div className="flex-grow">
+                <Quote className="w-8 h-8 text-pink-500 mb-4" />
+                <p className="text-base leading-relaxed mb-6">
+                  {reviews[0].review}
+                </p>
+              </div>
+              <div className="flex items-center space-x-4">
+                <img
+                  src={reviews[0].image}
+                  alt={reviews[0].name}
+                  className="w-14 h-14 rounded-full object-cover"
+                  loading="lazy"
+                />
+                <div>
+                  <h4 className="font-bold text-lg">{reviews[0].name}</h4>
+                  <p className="text-sm text-gray-600">{reviews[0].location}</p>
+                  <div className="flex space-x-1 mt-1">
+                    {renderStars(reviews[0].rating)}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Side - Grid of 3 Reviews */}
+            <div className="lg:w-1/2 flex flex-col gap-6">
+              {/* Top Large Review */}
+              <div className="bg-white text-black p-6 rounded-2xl shadow-lg">
+                <div className="flex items-start space-x-4">
+                  <Quote className="w-6 h-6 text-blue-500 flex-shrink-0 mt-1" />
+                  <p className="text-sm leading-relaxed mb-4">
+                    {reviews[1].review}
+                  </p>
+                </div>
+                <div className="flex items-center space-x-3 mt-4">
+                  <img
+                    src={reviews[1].image}
+                    alt={reviews[1].name}
+                    className="w-10 h-10 rounded-full object-cover"
+                    loading="lazy"
+                  />
+                  <div>
+                    <h4 className="font-bold text-sm">{reviews[1].name}</h4>
+                    <p className="text-xs text-gray-600">{reviews[1].location}</p>
+                    <div className="flex space-x-0.5 mt-0.5">
+                      {renderStars(reviews[1].rating)}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Two Small Reviews */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Review 1 */}
+                <div className="bg-white text-black p-4 rounded-2xl shadow-lg">
+                  <div className="flex items-start space-x-2">
+                    <Quote className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <p className="text-xs leading-relaxed line-clamp-3">
+                      {reviews[2].review}
+                    </p>
+                  </div>
+                  <div className="flex items-center space-x-2 mt-3">
+                    <img
+                      src={reviews[2].image}
+                      alt={reviews[2].name}
+                      className="w-8 h-8 rounded-full object-cover"
+                      loading="lazy"
+                    />
+                    <div>
+                      <h4 className="font-bold text-xs">{reviews[2].name}</h4>
+                      <div className="flex items-center space-x-1">
+                        <div className="flex">
+                          {renderStars(reviews[2].rating)}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Review 2 */}
+                <div className="bg-white text-black p-4 rounded-2xl shadow-lg">
+                  <div className="flex items-start space-x-2">
+                    <Quote className="w-5 h-5 text-yellow-500 flex-shrink-0 mt-0.5" />
+                    <p className="text-xs leading-relaxed line-clamp-3">
+                      {reviews[3]?.review || reviews[0].review}
+                    </p>
+                  </div>
+                  <div className="flex items-center space-x-2 mt-3">
+                    <img
+                      src={reviews[3]?.image || reviews[0].image}
+                      alt={reviews[3]?.name || reviews[0].name}
+                      className="w-8 h-8 rounded-full object-cover"
+                      loading="lazy"
+                    />
+                    <div>
+                      <h4 className="font-bold text-xs">{reviews[3]?.name || reviews[0].name}</h4>
+                      <div className="flex items-center space-x-1">
+                        <div className="flex">
+                          {renderStars(reviews[3]?.rating || reviews[0].rating)}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Before You Go Section */}
+      <section className="w-full bg-gray-50 py-12 lg:py-20">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex flex-col lg:flex-row items-start gap-8">
+            {/* Left Side - Text Content */}
+            <div className="lg:w-1/2">
+              <h2 className="text-xl lg:text-2xl font-bold text-black mb-4" style={{ fontFamily: '"Bodoni Bd BT", serif' }}>
+                BEFORE YOU GO
+              </h2>
+              <p className="text-sm text-gray-600 mb-6 leading-relaxed">
+                Essential things to review before heading to the airport—documents, packing list, travel plans, and online check-in for a smooth journey.
+              </p>
+              
+              <div className="h-6"></div>
+              
+              <div className="space-y-3">
+                <div className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <h3 className="font-semibold text-base text-gray-900 mb-1">Finalize Your Documents</h3>
+                  <p className="text-sm text-gray-500">Double-check your passport, visas, flight tickets, and hotel reservations. Make sure everything is in order and easily accessible.</p>
+                </div>
+
+                <div className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <h3 className="font-semibold text-base text-gray-900 mb-1">Pack Smart</h3>
+                  <p className="text-sm text-gray-500">Create a packing list to ensure you have all the essentials. Don't forget your medications, chargers, and any travel adapters you might need.</p>
+                </div>
+
+                <div className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <h3 className="font-semibold text-base text-gray-900 mb-1">Confirm Your Travel Plan</h3>
+                  <p className="text-sm text-gray-500">Review your itinerary one last time. Note down contact numbers for your accommodations, tour operators, and our agency in case you need assistance.</p>
+                </div>
+
+                <div className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <h3 className="font-semibold text-base text-gray-900 mb-1">Check-in Online</h3>
+                  <p className="text-sm text-gray-500">Save time at the airport by checking in for your flight 24 hours in advance.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Side - Image */}
+            <div className="lg:w-1/2 h-full">
+              <div className="relative rounded-2xl overflow-hidden shadow-xl h-[600px]">
+                <img
+                  src="/src/assets/airticket.jpg"
+                  alt="Air tickets and travel documents"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 p-8 text-white">
+                  <h3 className="text-2xl font-bold mb-2">Ready for Your Journey?</h3>
+                  <p className="text-gray-200">Let us help you prepare for an unforgettable travel experience.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Full Screen Dubai Image Section */}
+      <section className="w-full h-screen relative">
+        <div className="absolute inset-0">
+          <img
+            src="/src/assets/dubai.jpg"
+            alt="Dubai Skyline"
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-black/30"></div>
+        </div>
+        <div className="relative h-full flex items-center justify-center text-center px-4">
+          <div className="max-w-4xl mx-auto text-white">
+            <h2 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: '"Bodoni Bd BT", serif' }}>
+              Ready to Start Your Journey?
+            </h2>
+            <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+              Tell us where you want to go, and we'll handle the rest—from flights and hotels to visas and tours. 
+              Talk to our experts today and start planning a trip of a lifetime.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button className="bg-white text-black hover:bg-gray-100 px-8 py-3 rounded-full text-sm font-medium transition-all duration-300">
+                CONTACT AGENT
+              </Button>
+              <Button className="bg-transparent border-2 border-white text-white hover:bg-white/10 px-8 py-3 rounded-full text-sm font-medium transition-all duration-300">
+                GET A FREE QUOTE
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Footer */}
+            <Footer />
     </div>
   );
 }
