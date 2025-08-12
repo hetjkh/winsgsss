@@ -44,7 +44,7 @@ const beforego = () => {
             <div className="lg:w-1/2 h-full">
               <div className="relative rounded-2xl overflow-hidden shadow-xl h-[600px]">
                 <img
-                  src="/src/assets/airticket.jpg"
+                  src="/assets/airticket.jpg"
                   alt="Air tickets and travel documents"
                   className="w-full h-full object-cover"
                   loading="lazy"

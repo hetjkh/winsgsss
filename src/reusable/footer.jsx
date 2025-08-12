@@ -5,7 +5,7 @@ const Footer = () => {
     <section className="w-full h-screen relative">
     <div className="absolute inset-0">
       <img
-        src="/src/assets/dubai.jpg"
+        src="/assets/dubai.jpg"
         alt="Dubai Skyline"
         className="w-full h-full object-cover"
         loading="lazy"
@@ -39,7 +39,7 @@ const Footer = () => {
           <div className="col-span-1">
             <div className="flex items-center space-x-4 mb-8">
               <img
-                src="/src/assets/Wings & Wheels logo.png"
+                src="/assets/Wings & Wheels logo.png"
                 className="h-16 sm:h-20 transition-all duration-300"
                 alt="Wings & Wheels logo"
               />

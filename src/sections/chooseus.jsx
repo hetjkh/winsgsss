@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, memo } from 'react'
 import { ArrowUpRight, Star, Quote } from 'lucide-react';
 
 const whyChooseReasons = [
@@ -34,6 +34,28 @@ const whyChooseReasons = [
     }
   ];
 
+const ReasonCard = memo(({ reason }) => (
+  <div
+    className="group bg-white hover:bg-gray-50 p-7 lg:p-8 rounded-2xl transition-all duration-300 cursor-pointer shadow-sm hover:shadow-xl border border-gray-100 flex flex-col h-full min-h-[320px] will-change-transform"
+  >
+    <div className="flex-grow space-y-5">
+      <h3 className="text-lg font-bold text-gray-900 group-hover:text-black transition-colors duration-300">
+        {reason.title}
+      </h3>
+      <p className="text-sm text-gray-600 group-hover:text-gray-700 transition-colors duration-300 leading-relaxed">
+        {reason.description}
+      </p>
+    </div>
+
+    {/* Arrow Icon */}
+    <div className="mt-8">
+      <div className="w-8 h-8 rounded-full border border-gray-300 group-hover:border-gray-400 flex items-center justify-center group-hover:bg-gray-200 transition-all duration-300">
+        <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors duration-300" />
+      </div>
+    </div>
+  </div>
+));
+
 const chooseus = () => {
     const memoizedReasons = useMemo(() => whyChooseReasons, []);
   return (
@@ -56,26 +78,7 @@ const chooseus = () => {
           {/* Reasons Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
             {memoizedReasons.map((reason) => (
-              <div
-                key={reason.id}
-                className="group bg-white hover:bg-gray-50 p-7 lg:p-8 rounded-2xl transition-all duration-300 cursor-pointer shadow-sm hover:shadow-xl border border-gray-100 flex flex-col h-full min-h-[320px]"
-              >
-                <div className="flex-grow space-y-5">
-                  <h3 className="text-lg font-bold text-gray-900 group-hover:text-black transition-colors duration-300">
-                    {reason.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 group-hover:text-gray-700 transition-colors duration-300 leading-relaxed">
-                    {reason.description}
-                  </p>
-                </div>
-
-                {/* Arrow Icon */}
-                <div className="mt-8">
-                  <div className="w-8 h-8 rounded-full border border-gray-300 group-hover:border-gray-400 flex items-center justify-center group-hover:bg-gray-200 transition-all duration-300">
-                    <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors duration-300" />
-                  </div>
-                </div>
-              </div>
+              <ReasonCard key={reason.id} reason={reason} />
             ))}
           </div>
         </div>

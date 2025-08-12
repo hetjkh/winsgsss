@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Phone, Mail, MessageCircle, Facebook, Twitter, Instagram } from 'lucide-react';
-import LogoWord from '../assets/Wings.png';
+import LogoWord from '/assets/wings.png';
 import { ChevronDown } from 'lucide-react';
 
 const navItems = [

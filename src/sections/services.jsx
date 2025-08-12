@@ -1,14 +1,15 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, memo } from 'react'
 // Import local images
-import image1 from '../assets/1.jpg';
-import image2 from '../assets/2.jpg';
-import image3 from '../assets/3.jpg';
-import image4 from '../assets/4.jpg';
-import image5 from '../assets/5.jpg';
-import image6 from '../assets/6.jpg';
-import image7 from '../assets/7.jpg';
-import image8 from '../assets/8.jpg';
-import image9 from '../assets/9.jpg';
+// Images from public/assets directory
+const image1 = '/assets/1.jpg';
+const image2 = '/assets/2.jpg';
+const image3 = '/assets/3.jpg';
+const image4 = '/assets/4.jpg';
+const image5 = '/assets/5.jpg';
+const image6 = '/assets/6.jpg';
+const image7 = '/assets/7.jpg';
+const image8 = '/assets/8.jpg';
+const image9 = '/assets/9.jpg';
 
 import { ArrowUpRight, Star, Quote } from 'lucide-react';
 
@@ -72,6 +73,43 @@ const services = [
 
 
 
+const ServiceCard = memo(({ service }) => (
+  <div
+    className="group relative overflow-hidden rounded-2xl bg-black/30 hover:bg-black/50 transition-all duration-300 cursor-pointer h-[350px] lg:h-[400px] w-full max-w-[300px] mx-auto will-change-transform"
+  >
+    {/* Background Image */}
+    <div className="absolute inset-0 group-hover:bg-black/40 transition-all duration-300">
+      <img
+        src={service.image}
+        alt={service.title}
+        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+
+    {/* Content */}
+    <div className="relative p-6 h-full flex flex-col">
+      {/* Text Content */}
+      <div className="space-y-3">
+        <h3 className="text-lg font-bold text-white group-hover:text-blue-400 transition-colors duration-300">
+          {service.title}
+        </h3>
+        <p className="text-sm text-gray-300 group-hover:text-white transition-colors duration-300 line-clamp-4 leading-relaxed">
+          {service.description}
+        </p>
+      </div>
+
+      {/* Arrow Icon - Bottom Left */}
+      <div className="mt-auto pt-4">
+        <div className="w-8 h-8 rounded-full border border-white/30 group-hover:border-white flex items-center justify-center group-hover:bg-white/10 transition-all duration-300">
+          <ArrowUpRight className="w-4 h-4 text-white/70 group-hover:text-white transition-colors duration-300" />
+        </div>
+      </div>
+    </div>
+  </div>
+));
+
 const service = () => {
     const memoizedServices = useMemo(() => services, []);
   return (
@@ -94,40 +132,7 @@ const service = () => {
           {/* Services Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
             {memoizedServices.map((service) => (
-              <div
-                key={service.id}
-                className="group relative overflow-hidden rounded-2xl bg-black/30 hover:bg-black/50 transition-all duration-500 cursor-pointer h-[350px] lg:h-[400px] w-full max-w-[300px] mx-auto"
-              >
-                {/* Background Image */}
-                <div className="absolute inset-0 group-hover:bg-black/40 transition-all duration-500">
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                </div>
-
-                {/* Content */}
-                <div className="relative p-6 h-full flex flex-col">
-                  {/* Text Content */}
-                  <div className="space-y-3">
-                    <h3 className="text-lg font-bold text-white group-hover:text-blue-400 transition-colors duration-300">
-                      {service.title}
-                    </h3>
-                    <p className="text-sm text-gray-300 group-hover:text-white transition-colors duration-300 line-clamp-4 leading-relaxed">
-                      {service.description}
-                    </p>
-                  </div>
-
-                  {/* Arrow Icon - Bottom Left */}
-                  <div className="mt-auto pt-4">
-                    <div className="w-8 h-8 rounded-full border border-white/30 group-hover:border-white flex items-center justify-center group-hover:bg-white/10 transition-all duration-300">
-                      <ArrowUpRight className="w-4 h-4 text-white/70 group-hover:text-white transition-colors duration-300" />
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <ServiceCard key={service.id} service={service} />
             ))}
           </div>
         </div>

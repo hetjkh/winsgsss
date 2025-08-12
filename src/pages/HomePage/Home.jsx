@@ -1,43 +1,54 @@
-import React, { useState, useMemo } from 'react';
+import React, { lazy, Suspense } from 'react';
 import Navbar from '../../reusable/navbar';
-import { Button } from '../../components/ui/button';
-import hetImage from '../../assets/het.jpg';
-import { ArrowUpRight, Star, Quote } from 'lucide-react';
-import Footer from '../../reusable/footer';
 
-import Header from '../../sections/header';
-import Service from '../../sections/services';
+// Lazy load components to improve initial load time
+const Header = lazy(() => import('../../sections/header'));
+const Service = lazy(() => import('../../sections/services'));
+const Popular = lazy(() => import('../../sections/popular'));
+const Chooseus = lazy(() => import('../../sections/chooseus'));
+const Review = lazy(() => import('../../sections/review'));
+const Beforego = lazy(() => import('../../sections/beforego'));
+const Footer = lazy(() => import('../../reusable/footer'));
 
-import Popular from '../../sections/popular';
-import Chooseus from '../../sections/chooseus';
-import Review from '../../sections/review';
-import Beforego from '../../sections/beforego';
+// Loading component
+const LoadingSpinner = () => (
+  <div className="flex items-center justify-center py-12">
+    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+  </div>
+);
 
 const Home = () => {
- 
-  
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
       
-      {/* Hero Section */}
-      <Header/>
+      <Suspense fallback={<LoadingSpinner />}>
+        <Header />
+      </Suspense>
 
-      {/* Services Section */}
-     <Service/>
-      {/* Enhanced Popular Destinations Section */}
-      <Popular/>
-      {/* Why Choose Travel Agency Section */}
-      <Chooseus/>
+      <Suspense fallback={<LoadingSpinner />}>
+        <Service />
+      </Suspense>
 
-      {/* Customer Reviews Section */}
-      <Review/>
-      {/* Before You Go Section */}
-      <Beforego/>
-      {/* Full Screen Dubai Image Section */}
-      
-      {/* Footer */}
-            <Footer />
+      <Suspense fallback={<LoadingSpinner />}>
+        <Popular />
+      </Suspense>
+
+      <Suspense fallback={<LoadingSpinner />}>
+        <Chooseus />
+      </Suspense>
+
+      <Suspense fallback={<LoadingSpinner />}>
+        <Review />
+      </Suspense>
+
+      <Suspense fallback={<LoadingSpinner />}>
+        <Beforego />
+      </Suspense>
+
+      <Suspense fallback={<LoadingSpinner />}>
+        <Footer />
+      </Suspense>
     </div>
   );
 }

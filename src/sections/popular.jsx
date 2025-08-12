@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useCallback } from 'react'
 
 
 
@@ -66,19 +66,18 @@ const popular = () => {
     
     const memoizedDestinations = useMemo(() => destinations, []);
     
-    const handleDestinationClick = (destination) => {
+    const handleDestinationClick = useCallback((destination) => {
         setSelectedDestination(destination);
-    };
+    }, []);
   return (
     <div>
       <section 
-        className="relative w-full bg-cover bg-center bg-no-repeat min-h-screen flex flex-col transition-all duration-700 ease-in-out"
+        className="relative w-full bg-cover bg-center bg-no-repeat min-h-screen flex flex-col will-change-transform"
         style={{
           backgroundImage: `url('${selectedDestination.image}')`
         }}
       >
         {/* Background Overlay */}
-        <div className="absolute inset-0 bg-black/40 transition-all duration-700"></div>
         
         {/* Content Container */}
         <div className="relative z-10 flex-1 flex flex-col justify-between max-w-7xl mx-auto w-full px-4 lg:px-6 py-8 lg:py-10">
