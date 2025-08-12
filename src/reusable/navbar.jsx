@@ -16,9 +16,20 @@ const Navbar = ({ showContactButton = true }) => {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [showTopBar, setShowTopBar] = useState(true);
 
   useEffect(() => {
     setIsVisible(true);
+    
+    // Hide top bar on mobile scroll
+    const handleScroll = () => {
+      if (window.innerWidth <= 768) {
+        setShowTopBar(window.scrollY < 50);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const toggleMobileMenu = () => {
@@ -28,10 +39,12 @@ const Navbar = ({ showContactButton = true }) => {
   return (
     <>
       {/* Top Contact Bar */}
-      <div className="bg-black text-white py-2 px-4 text-sm">
+      <div className={`bg-black text-white py-2 px-4 text-sm transition-transform duration-300 ${
+        showTopBar ? 'translate-y-0' : '-translate-y-full'
+      } md:translate-y-0`}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
           {/* Left Section - Social Media Icons */}
-          <div className="flex items-center space-x-3">
+          <div className="hidden md:flex items-center space-x-3">
             <Facebook className="w-4 h-4 cursor-pointer hover:text-blue-400 transition-colors" />
             <Twitter className="w-4 h-4 cursor-pointer hover:text-blue-400 transition-colors" />
             <Instagram className="w-4 h-4 cursor-pointer hover:text-pink-400 transition-colors" />
@@ -40,19 +53,19 @@ const Navbar = ({ showContactButton = true }) => {
           
           {/* Middle Section - Phone Numbers */}
           <div className="flex flex-col sm:flex-row items-center space-y-1 sm:space-y-0 sm:space-x-6">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-1 sm:space-x-2">
               <Phone className="w-4 h-4 text-blue-400" />
-              <span>Dubai: +971 4 556 1050</span>
+              <span className="text-xs sm:text-sm">Dubai: +971 4 556 1050</span>
             </div>
             <div className="hidden sm:block text-gray-400">|</div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-1 sm:space-x-2">
               <Phone className="w-4 h-4 text-blue-400" />
-              <span>Abu Dhabi: +971 2 639 4277</span>
+              <span className="text-xs sm:text-sm">Abu Dhabi: +971 2 639 4277</span>
             </div>
           </div>
           
           {/* Right Section - Email */}
-          <div className="flex items-center space-x-2">
+          <div className="hidden md:flex items-center space-x-2">
             <Mail className="w-4 h-4 text-red-400" />
             <span>reservation@wwtravels.net</span>
           </div>
@@ -60,33 +73,33 @@ const Navbar = ({ showContactButton = true }) => {
       </div>
       
       {/* Main Navigation */}
-      <nav className="bg-transparent py-4">
-      <div className="max-w-7xl mx-auto pl-2 sm:pl-4">
-        <div className="flex items-center">
+      <nav className="bg-transparent py-2 md:py-4 z-50 bg-white/95 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none">
+      <div className="max-w-7xl mx-auto px-2 sm:px-4">
+        <div className="flex items-center justify-between">
           {/* Logo with Text */}
           <div 
-            className={`flex items-center space-x-4 transition-all duration-1000 ${
+            className={`flex items-center space-x-2 md:space-x-4 transition-all duration-1000 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
           >
             <img
               onClick={() => navigate('/')}
-              className="h-20 sm:h-24 transition-all duration-300 cursor-pointer hover:scale-105"
+              className="h-12 sm:h-16 md:h-20 lg:h-24 transition-all duration-300 cursor-pointer hover:scale-105"
               alt="Wings wheels logo"
               src={LogoWord}
             />
-            <div className="flex flex-col">
-              <h1 className="text-black text-xl sm:text-2xl font-bold tracking-wide" style={{ fontFamily: '"Bodoni Bd BT", serif' }}>
+            <div className="flex flex-col min-w-0">
+              <h1 className="text-black text-sm sm:text-lg md:text-xl lg:text-2xl font-bold tracking-wide leading-tight" style={{ fontFamily: '"Bodoni Bd BT", serif' }}>
                 WINGS & WHEELS
               </h1>
-              <p className="text-black text-sm sm:text-base -mt-1" style={{ fontFamily: '"Bodoni Bd BT", serif' }}>
+              <p className="text-black text-xs sm:text-sm md:text-base -mt-1 leading-tight" style={{ fontFamily: '"Bodoni Bd BT", serif' }}>
                 TRAVEL AND TOURISM
               </p>
             </div>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex flex-1 justify-center">
+          <div className="hidden lg:flex flex-1 justify-center mx-8">
             <div 
               className={`flex space-x-8 transition-all duration-1200 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
@@ -107,23 +120,35 @@ const Navbar = ({ showContactButton = true }) => {
 
           {/* WhatsApp and Contact Button - Desktop */}
           {showContactButton && (
-            <div 
-              className={`hidden lg:flex items-center space-x-4 transition-all duration-1400 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-              }`}
-            >
-              <div className="flex items-center space-x-2 text-black">
-                <span className="text-sm font-medium">WHATSAPP</span>
-          
-                <ChevronDown className="w-5 h-5 text-black-400" />
-              </div>
-              <Button
-                onClick={() => navigate('/contact')}
-                className="rounded-full bg-transparent border border-black hover:bg-black hover:text-white h-10 px-6 text-black text-sm font-medium transition-all duration-300 hover:scale-105"
+            <>
+              {/* Desktop WhatsApp and Contact */}
+              <div 
+                className={`hidden lg:flex items-center space-x-4 transition-all duration-1400 ${
+                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                }`}
               >
-                CONTACT
-              </Button>
-            </div>
+                <div className="flex items-center space-x-2 text-black">
+                  <span className="text-sm font-medium">WHATSAPP</span>
+                  <ChevronDown className="w-5 h-5 text-black-400" />
+                </div>
+                <Button
+                  onClick={() => navigate('/contact')}
+                  className="rounded-full bg-transparent border border-black hover:bg-black hover:text-white h-10 px-6 text-black text-sm font-medium transition-all duration-300 hover:scale-105"
+                >
+                  CONTACT
+                </Button>
+              </div>
+              
+              {/* Mobile Contact Button */}
+              <div className="lg:hidden">
+                <Button
+                  onClick={() => navigate('/contact')}
+                  className="rounded-full bg-black text-white hover:bg-gray-800 h-8 px-4 text-xs font-medium transition-all duration-300"
+                >
+                  CONTACT
+                </Button>
+              </div>
+            </>
           )}
 
           {/* Mobile Menu Button */}
@@ -132,7 +157,7 @@ const Navbar = ({ showContactButton = true }) => {
               onClick={toggleMobileMenu}
               variant="ghost"
               size="icon"
-              className="text-white hover:bg-white/10"
+              className="text-black hover:bg-black/10 h-8 w-8"
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </Button>
@@ -141,8 +166,8 @@ const Navbar = ({ showContactButton = true }) => {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden mt-4 pb-4 bg-black/90 rounded-lg">
-            <div className="flex flex-col space-y-4">
+          <div className="lg:hidden absolute top-full left-0 right-0 bg-white shadow-lg border-t z-50">
+            <div className="flex flex-col py-4">
               {navItems.map((item, index) => (
                 <div
                   key={index}
@@ -150,29 +175,27 @@ const Navbar = ({ showContactButton = true }) => {
                     navigate(item.path);
                     setIsMobileMenuOpen(false);
                   }}
-                  className="text-black text-lg font-medium cursor-pointer transition-all duration-300 hover:text-blue-600 px-4 py-2"
+                  className="text-black text-base font-medium cursor-pointer transition-all duration-300 hover:text-blue-600 hover:bg-gray-50 px-6 py-3 border-b border-gray-100 last:border-b-0"
                 >
                   {item.name}
                 </div>
               ))}
-              {/* WhatsApp in Mobile Menu */}
-              <div className="flex items-center justify-center space-x-2 text-black px-4 py-2">
-                <span className="text-lg font-medium">WHATSAPP</span>
-                <MessageCircle className="w-6 h-6 text-green-400" />
-              </div>
-              {showContactButton && (
-                <div className="px-4 pt-2">
-                  <Button
-                    onClick={() => {
-                      navigate('/contact');
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="rounded-full bg-transparent border border-black hover:bg-black hover:text-white w-full h-12 text-black text-lg font-medium transition-all duration-300"
-                  >
-                    CONTACT
-                  </Button>
+              
+              {/* Mobile Contact Info */}
+              <div className="px-6 py-4 bg-gray-50 space-y-3">
+                <div className="flex items-center space-x-2">
+                  <Phone className="w-4 h-4 text-blue-400" />
+                  <span className="text-sm text-gray-700">+971 4 556 1050</span>
                 </div>
-              )}
+                <div className="flex items-center space-x-2">
+                  <Mail className="w-4 h-4 text-red-400" />
+                  <span className="text-sm text-gray-700">reservation@wwtravels.net</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <MessageCircle className="w-4 h-4 text-green-400" />
+                  <span className="text-sm text-gray-700">WhatsApp Support</span>
+                </div>
+              </div>
             </div>
           </div>
         )}

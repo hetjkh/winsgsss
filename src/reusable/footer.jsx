@@ -1,7 +1,37 @@
 import React from 'react';
-
+import { Button } from '../components/ui/button';
 const Footer = () => {
   return (
+    <section className="w-full h-screen relative">
+    <div className="absolute inset-0">
+      <img
+        src="/src/assets/dubai.jpg"
+        alt="Dubai Skyline"
+        className="w-full h-full object-cover"
+        loading="lazy"
+      />
+      <div className="absolute inset-0 bg-black/30"></div>
+    </div>
+    <div className="relative h-full flex items-center justify-center text-center px-4">
+      <div className="max-w-4xl mx-auto text-white">
+        <h2 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: '"Bodoni Bd BT", serif' }}>
+          Ready to Start Your Journey?
+        </h2>
+        <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+          Tell us where you want to go, and we'll handle the rest—from flights and hotels to visas and tours. 
+          Talk to our experts today and start planning a trip of a lifetime.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button className="bg-white text-black hover:bg-gray-100 px-8 py-3 rounded-full text-sm font-medium transition-all duration-300">
+            CONTACT AGENT
+          </Button>
+          <Button className="bg-transparent border-2 border-white text-white hover:bg-white/10 px-8 py-3 rounded-full text-sm font-medium transition-all duration-300">
+            GET A FREE QUOTE
+          </Button>
+        </div>
+      </div>
+    </div>
+
     <footer className="bg-gray-900 text-white py-12">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -110,6 +140,7 @@ const Footer = () => {
         </div>
       </div>
     </footer>
+    </section>
   );
 };
 
